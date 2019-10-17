@@ -1,0 +1,42 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+C:/Users/zhao/CLionProjects/test/Token.h
+string
+-
+
+C:/Users/zhao/CLionProjects/test/Vartable.h
+Token.h
+C:/Users/zhao/CLionProjects/test/Token.h
+
+C:/Users/zhao/CLionProjects/test/main.cpp
+iostream
+-
+string
+-
+fstream
+-
+sstream
+-
+stack
+-
+vector
+-
+set
+-
+map
+-
+cstdlib
+-
+regex
+-
+Token.h
+C:/Users/zhao/CLionProjects/test/Token.h
+Vartable.h
+C:/Users/zhao/CLionProjects/test/Vartable.h
+
