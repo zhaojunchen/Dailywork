@@ -1,0 +1,30 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+C:/Users/zhao/CLionProjects/zhajinhua/Play.h
+iostream
+-
+algorithm
+-
+set
+-
+ctime
+-
+card.h
+C:/Users/zhao/CLionProjects/zhajinhua/card.h
+
+C:/Users/zhao/CLionProjects/zhajinhua/card.h
+string
+-
+
+C:/Users/zhao/CLionProjects/zhajinhua/main.cpp
+iostream
+-
+Play.h
+C:/Users/zhao/CLionProjects/zhajinhua/Play.h
+
