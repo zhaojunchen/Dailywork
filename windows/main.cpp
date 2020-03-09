@@ -12,7 +12,6 @@
 #include <io.h>
 #include <windows.h>
 #include <string>
-//#include "tools.h"
 #include "fat32.h"
 
 
