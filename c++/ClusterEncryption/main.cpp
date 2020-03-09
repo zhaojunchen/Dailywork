@@ -1,6 +1,5 @@
 #define _CRT_SECURE_NO_WARNINGS
 
-
 #include <fstream>
 #include "cmdline.h"
 #include <cstdint>
@@ -157,7 +156,13 @@ static void show(unsigned char *arr, int length) {
 }
 
 void volumeTravel();
+static void freeUs(us *&out) {
+    if (out != nullptr) {
+        delete[] out;
+    }
+    out = nullptr;
 
+}
 HANDLE OpenDisk(char partition, bool onlyRead = false) {
     string path = "\\\\.\\f:";
     path[4] = partition;
@@ -197,7 +202,7 @@ void seekDisk(HANDLE handle, UINT64 offset, DWORD dwMoveMode = FILE_BEGIN) {
 }
 
 static DWORD ReadDisk(HANDLE hDevice, us *&out, u64 start, u64 size) {
-    DWORD readSize = 0;
+    DWORD readSize = 0;// 读完之后需要删除堆栈的空间！
     out = new us[size + 1];// 内存泄露！
     memset(out, 0, sizeof(us) * size + 1);
     //当前文件偏移
@@ -227,13 +232,16 @@ static DWORD WriteDisk(HANDLE hDevice, us *&in, u64 start, u64 size) {
     bool ok = WriteFile(hDevice, in, size, &writeSize, 0);
     if (!ok || writeSize != size) {
         cout << "LINE：" << __LINE__ << "   ERROR " << GetLastError();
+        delete[]in;
         CloseHandle(hDevice);
         exit(-1);
     }
+    delete[]in;
 # if 1
     if (!DeviceIoControl(hDevice, FSCTL_UNLOCK_VOLUME, NULL, 0, NULL, 0, &dwBytesReturned, NULL)) {
         printf("\n\n磁盘解锁失败!错误码:%d", GetLastError());
     }
+
 # endif
 }
 
@@ -326,6 +334,9 @@ static u32 diff(u32 a, u32 b) {
     }
 }
 
+// 删除堆内存、设置指针为空
+
+
 // 根据首簇号寻找簇链、返回簇链的链表！
 vector<u32> findClusterList(HANDLE handle, const u32 &clusterIndex) {
     vector<u32> clusterList;
@@ -349,14 +360,14 @@ vector<u32> findClusterList(HANDLE handle, const u32 &clusterIndex) {
                     (((FatAddress(nextClusterIndex) - offsetSector(currentSector)) % (sectorSize * numberSector)));
             nextClusterIndex = uint8to32(start);
         } else {
-            delete[]out;
+            freeUs(out);
             ReadSector(handle, out, nextSector, numberSector);
             start = out + ((FatAddress(nextClusterIndex) - offsetSector(nextSector)) % (sectorSize * numberSector));
             nextClusterIndex = uint8to32(start);
             currentSector = nextSector;
         }
     }
-    delete[]out;
+    freeUs(out);
     return clusterList;
 }
 
@@ -389,7 +400,7 @@ bool compareLDT(const wstring &target, us *&p, const int &skip) {
     }
     wstring copy_wstring(copy);
     if (copy_wstring == target) {
-        delete[]copy;
+        delete[]copy;// 注意必须 清空堆内存
         return true;
     } else {
         delete[]copy;
@@ -635,6 +646,7 @@ void work(cmdline::parser &cmd) {
         if (all <= 0) {
             cout << "\n加密/解密完成！\n";
             delete[]out;
+            CloseHandle(handle);
             return;
         } else {// 执行到这里、说明onceCluster！=1 即是簇链是连续的！
             ReadCluster(handle, out, clusterList[i * onceCluster], all);
@@ -644,6 +656,7 @@ void work(cmdline::parser &cmd) {
             WriteCluster(handle, out, clusterList[i * onceCluster], all);
             delete[]out;
             cout << "\n加密/解密完成！\n";
+            CloseHandle(handle);
             return;
         }
 
@@ -682,12 +695,6 @@ int main(int argc, char *argv[]) {
         }
     }
     work(cmd);
-
-    // 解析路径文件 得到目录项的起始簇号！
-
-    //delete[]out;
-    //CloseHandle(handle);
-    system("pause");
     return 0;
 }
 
