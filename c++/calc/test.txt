@@ -1,0 +1,8 @@
+float a;
+int b;
+a = (10.44*356+1.28) / 2 + 1024 * 1.6;
+b = a * 2 - a/2;
+int c = a+b+124;
+write(b);
+write(c);
+write(a).
