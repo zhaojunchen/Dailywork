@@ -23,28 +23,28 @@ typedef unsigned long long u64;
 using namespace std;
 
 
-// ÉÈÇø ´óĞ¡ !
+// æ‰‡åŒº å¤§å° !
 u16 Bytes_per_Sector = 512;
 u16 sectorSize = Bytes_per_Sector;
-// Ã¿Ò»´ØµÄÉÈÇø
+// æ¯ä¸€ç°‡çš„æ‰‡åŒº
 u8 Sectors_per_Cluster = 8;
 u64 clusterSize = Bytes_per_Sector * Sectors_per_Cluster;
-// ±£ÁôÉÈÇø
+// ä¿ç•™æ‰‡åŒº
 u16 Reserved_Sector = 8238;
-// FAT±íµÄÊıÄ¿
+// FATè¡¨çš„æ•°ç›®
 u8 FATs = 2;
-// FAT±íÕ¼ÓÃµÄÉÈÇøÊı
+// FATè¡¨å ç”¨çš„æ‰‡åŒºæ•°
 u32 Sectors_per_FAT_FAT32 = 8169;
-// Ê×´Ø±àºÅ
+// é¦–ç°‡ç¼–å·
 u32 Root_Cluster_Number = 2;
-//FAT±íÆğÊ¼µØÖ·
+//FATè¡¨èµ·å§‹åœ°å€
 u64 baseFat = Reserved_Sector * Bytes_per_Sector;
-// Ê×´ØÆğÊ¼µØÖ·
+// é¦–ç°‡èµ·å§‹åœ°å€
 u64 baseCluster = Bytes_per_Sector * (Reserved_Sector + Sectors_per_FAT_FAT32 * FATs);
-// ¸ùÄ¿Â¼ËùÔÚµÄÎ»ÖÃ
+// æ ¹ç›®å½•æ‰€åœ¨çš„ä½ç½®
 u64 baseDir = baseCluster;
 
-// ÊäÈë´ØºÅ ·µ»Ø¶ÔÓ¦µÄ´ØµÄÆ«ÒÆ
+// è¾“å…¥ç°‡å· è¿”å›å¯¹åº”çš„ç°‡çš„åç§»
 inline UINT64 offsetCluster(UINT64 in) {
     return baseCluster + (in - Root_Cluster_Number) * clusterSize;
 }
@@ -53,7 +53,7 @@ inline u64 _offsetCluster(u64 offset) {
     return (offset - baseCluster) / clusterSize + 2;
 }
 
-/// ÊäÈëÉÈÇøºÅ ·µ»Ø ¶ÔÓ¦µÄÆ«ÒÆ
+/// è¾“å…¥æ‰‡åŒºå· è¿”å› å¯¹åº”çš„åç§»
 inline UINT64 offsetSector(UINT64 in) {
     return sectorSize * in;
 }
@@ -81,7 +81,7 @@ static UINT64 uint8to64(UINT8 eightuint8[8]) {
 
 static wstring UTF8ToUnicode(const string &s) {
     wstring result;
-    // »ñµÃ»º³åÇøµÄ¿í×Ö·û¸öÊı
+    // è·å¾—ç¼“å†²åŒºçš„å®½å­—ç¬¦ä¸ªæ•°
     int length = MultiByteToWideChar(CP_UTF8, 0, s.c_str(), -1, NULL, 0);
     wchar_t *buffer = new wchar_t[length];
     ::MultiByteToWideChar(CP_UTF8, 0, s.c_str(), -1, buffer, length);
@@ -106,18 +106,18 @@ static void wprintByte(wstring str) {
     printf("\n");
 }
 
-// ×Ö·û´®·Ö¸î²Ù×÷
+// å­—ç¬¦ä¸²åˆ†å‰²æ“ä½œ
 static vector<string> split(const string &str, const string &pattern) {
     vector<string> res;
     if (str == "")
         return res;
-    //ÔÚ×Ö·û´®Ä©Î²Ò²¼ÓÈë·Ö¸ô·û£¬·½±ã½ØÈ¡×îºóÒ»¶Î
+    //åœ¨å­—ç¬¦ä¸²æœ«å°¾ä¹ŸåŠ å…¥åˆ†éš”ç¬¦ï¼Œæ–¹ä¾¿æˆªå–æœ€åä¸€æ®µ
     string strs = str + pattern;
     size_t pos = strs.find(pattern);
     while (pos != strs.npos) {
         string temp = strs.substr(0, pos);
         res.push_back(temp);
-        //È¥µôÒÑ·Ö¸îµÄ×Ö·û´®,ÔÚÊ£ÏÂµÄ×Ö·û´®ÖĞ½øĞĞ·Ö¸î
+        //å»æ‰å·²åˆ†å‰²çš„å­—ç¬¦ä¸²,åœ¨å‰©ä¸‹çš„å­—ç¬¦ä¸²ä¸­è¿›è¡Œåˆ†å‰²
         strs = strs.substr(pos + 1, strs.size());
         pos = strs.find(pattern);
     }
@@ -167,7 +167,7 @@ HANDLE OpenDisk(char partition, bool onlyRead = false) {
     } else {
         dwDesiredAccess = GENERIC_WRITE | GENERIC_READ;
     }
-    // TODO visual ºÍclionÃ²ËÆÓĞµãÇø±ğ£¡
+    // TODO visual å’Œclionè²Œä¼¼æœ‰ç‚¹åŒºåˆ«ï¼
     HANDLE hDevice = CreateFileW(stringToLPCWSTR(path),
                                  dwDesiredAccess,
                                  FILE_SHARE_READ | FILE_SHARE_WRITE,
@@ -182,7 +182,7 @@ HANDLE OpenDisk(char partition, bool onlyRead = false) {
     return hDevice;
 }
 
-//ÉèÖÃHANDLEµÄµ±Ç°Ö¸Õë Ä¬ÈÏÎª´ÓÍ·¿ªÊ¼ÒÆ¶¯
+//è®¾ç½®HANDLEçš„å½“å‰æŒ‡é’ˆ é»˜è®¤ä¸ºä»å¤´å¼€å§‹ç§»åŠ¨
 void seekDisk(HANDLE handle, UINT64 offset, DWORD dwMoveMode = FILE_BEGIN) {
     assert(offset % 512 == 0);
     LARGE_INTEGER currentPointer;
@@ -198,9 +198,9 @@ void seekDisk(HANDLE handle, UINT64 offset, DWORD dwMoveMode = FILE_BEGIN) {
 
 static DWORD ReadDisk(HANDLE hDevice, us *&out, u64 start, u64 size) {
     DWORD readSize = 0;
-    out = new us[size + 1];// ÄÚ´æĞ¹Â¶£¡
+    out = new us[size + 1];// å†…å­˜æ³„éœ²ï¼
     memset(out, 0, sizeof(us) * size + 1);
-    //µ±Ç°ÎÄ¼şÆ«ÒÆ
+    //å½“å‰æ–‡ä»¶åç§»
     seekDisk(hDevice, start);
     bool ok = ReadFile(hDevice, out, size, &readSize, 0);
     if (size != readSize || ok == false) {
@@ -214,10 +214,10 @@ static DWORD ReadDisk(HANDLE hDevice, us *&out, u64 start, u64 size) {
 static DWORD WriteDisk(HANDLE hDevice, us *&in, u64 start, u64 size) {
     assert(size % 512 == 0);
     DWORD dwBytesReturned = 0;
-    //Ëø´ÅÅÌ
+    //é”ç£ç›˜
 # if 1
     if (!DeviceIoControl(hDevice, FSCTL_LOCK_VOLUME, NULL, 0, NULL, 0, &dwBytesReturned, NULL)) {
-        printf("\nËø´ÅÅÌÊ§°Ü£¬Ê§°ÜÔ­Òò:%d", GetLastError());
+        printf("\né”ç£ç›˜å¤±è´¥ï¼Œå¤±è´¥åŸå› :%d", GetLastError());
         CloseHandle(hDevice);
         exit(-1);
     }
@@ -226,13 +226,13 @@ static DWORD WriteDisk(HANDLE hDevice, us *&in, u64 start, u64 size) {
     DWORD writeSize = 0;
     bool ok = WriteFile(hDevice, in, size, &writeSize, 0);
     if (!ok || writeSize != size) {
-        cout << "LINE£º" << __LINE__ << "   ERROR " << GetLastError();
+        cout << "LINEï¼š" << __LINE__ << "   ERROR " << GetLastError();
         CloseHandle(hDevice);
         exit(-1);
     }
 # if 1
     if (!DeviceIoControl(hDevice, FSCTL_UNLOCK_VOLUME, NULL, 0, NULL, 0, &dwBytesReturned, NULL)) {
-        printf("\n\n´ÅÅÌ½âËøÊ§°Ü!´íÎóÂë:%d", GetLastError());
+        printf("\n\nç£ç›˜è§£é”å¤±è´¥!é”™è¯¯ç :%d", GetLastError());
     }
 # endif
 }
@@ -241,27 +241,27 @@ DWORD WriteCluster(HANDLE handle, us *in, DWORD startCluster, DWORD numberCluste
     WriteDisk(handle, in, offsetCluster(startCluster), numberCluster * clusterSize);
 }
 
-// ¶ÁÈ¡Èô¸ÉÉÈÇø
+// è¯»å–è‹¥å¹²æ‰‡åŒº
 DWORD ReadSector(HANDLE handle, us *&out, DWORD startSector, DWORD numberSector = 1) {
     DWORD readSize = 0;
-    DWORD size = numberSector * Bytes_per_Sector;// ÉÈÇø×Ö½ÚÊı
+    DWORD size = numberSector * Bytes_per_Sector;// æ‰‡åŒºå­—èŠ‚æ•°
     return ReadDisk(handle, out, offsetSector(startSector), size);
 }
 
-// ¶ÁÈ¡Èô¸É´Ø
+// è¯»å–è‹¥å¹²ç°‡
 DWORD ReadCluster(HANDLE handle, us *&out, DWORD startCluster, DWORD numberCluster = 1) {
     DWORD readSize = 0;
-    DWORD size = numberCluster * clusterSize;// ÉÈÇø×Ö½ÚÊı
+    DWORD size = numberCluster * clusterSize;// æ‰‡åŒºå­—èŠ‚æ•°
     return ReadDisk(handle, out, offsetCluster(startCluster), size);
 }
 
 bool FileExist(const std::string &name);
 
-// ½âÎöÎÄ¼şÂ·¾¶ ¼ÙÉèÃ»ÓĞÖĞÎÄ³öÏÖ
+// è§£ææ–‡ä»¶è·¯å¾„ å‡è®¾æ²¡æœ‰ä¸­æ–‡å‡ºç°
 vector<string> ParseFilePath(const string &path = "f:/cmd/main.cpp") {
-    // ÎÄ¼ş´¦Àí ÊäÈëµÄÂ·¾¶ÊÇ£º C:/test/test.c ĞÎÊ½µÄ
-    // ÅĞ¶ÏÎÄ¼şÊÇ·ñ´æÔÚ
-    // ÏÈÅĞ¶ÏÎÄ¼şÊÇ·ñ´æÔÚ
+    // æ–‡ä»¶å¤„ç† è¾“å…¥çš„è·¯å¾„æ˜¯ï¼š C:/test/test.c å½¢å¼çš„
+    // åˆ¤æ–­æ–‡ä»¶æ˜¯å¦å­˜åœ¨
+    // å…ˆåˆ¤æ–­æ–‡ä»¶æ˜¯å¦å­˜åœ¨
     if (!FileExist(path)) {
         cerr << "LINE " << __LINE__ << "ERROR  FILE NOT EXIST!" << endl;
         exit(-1);
@@ -271,37 +271,37 @@ vector<string> ParseFilePath(const string &path = "f:/cmd/main.cpp") {
     std::regex reg("^[A-Za-z]:/");
     smatch result;
     if (!regex_match(partition, result, reg)) {
-        cout << "ÇëÊäÈë¾ø¶ÔÂ·¾¶£¡";
+        cout << "è¯·è¾“å…¥ç»å¯¹è·¯å¾„ï¼";
         exit(-1);
     }
-    // ¿ªÊ¼½âÎö£¡
+    // å¼€å§‹è§£æï¼
     return res;
 }
 
-// DBR¼°ÆäÈ«¾Ö±äÁ¿µÄ³õÊ¼»¯£¡
+// DBRåŠå…¶å…¨å±€å˜é‡çš„åˆå§‹åŒ–ï¼
 pFAT32_DBR INIT_FAT32_DBR(HANDLE handle) {
     pFAT32_DBR dbr = new FAT32_DBR();
     ReadDisk(handle, (us *&) dbr, 0, 512);
-    // ÉÈÇø´óĞ¡ 512
+    // æ‰‡åŒºå¤§å° 512
     Bytes_per_Sector = dbr->BPB.Bytes_per_Sector;
     sectorSize = Bytes_per_Sector;
-    // Ã¿Ò»´ØµÄÉÈÇø 8
+    // æ¯ä¸€ç°‡çš„æ‰‡åŒº 8
     Sectors_per_Cluster = dbr->BPB.Sectors_per_Cluster;
     clusterSize = Bytes_per_Sector * Sectors_per_Cluster;
-    // ±£ÁôÉÈÇø 8238
+    // ä¿ç•™æ‰‡åŒº 8238
     Reserved_Sector = dbr->BPB.Reserved_Sector;
-    // FAT±íµÄÊıÄ¿ 2
+    // FATè¡¨çš„æ•°ç›® 2
     FATs = dbr->BPB.FATs;
-    // FAT±íÕ¼ÓÃµÄÉÈÇøÊı 8169
+    // FATè¡¨å ç”¨çš„æ‰‡åŒºæ•° 8169
     Sectors_per_FAT_FAT32 = dbr->BPB.Fat32_Sector.Sectors_per_FAT_FAT32;
-    //  ÆğÊ¼´ØºÅ
+    //  èµ·å§‹ç°‡å·
     Root_Cluster_Number = dbr->BPB.Fat32_Sector.Root_Cluster_Number;
 
-    //FAT±íÆğÊ¼µØÖ·
+    //FATè¡¨èµ·å§‹åœ°å€
     baseFat = Reserved_Sector * Bytes_per_Sector;
-    // Ê×´ØÆğÊ¼µØÖ·£¨2ºÅ£©
+    // é¦–ç°‡èµ·å§‹åœ°å€ï¼ˆ2å·ï¼‰
     baseCluster = Bytes_per_Sector * (Reserved_Sector + Sectors_per_FAT_FAT32 * FATs);
-    // ¸ùÄ¿Â¼ËùÔÚµÄÎ»ÖÃ
+    // æ ¹ç›®å½•æ‰€åœ¨çš„ä½ç½®
     baseDir = baseCluster;
     return dbr;
 }
@@ -310,14 +310,14 @@ inline u64 offsetBySector(u64 sectorNumber) {
     return Bytes_per_Sector * sectorNumber;
 }
 
-// ¸ù¾İ´ØºÅ¡¢Ñ°ÕÒµ½¸Ã´ØµÄÆ«ÒÆ£¡
+// æ ¹æ®ç°‡å·ã€å¯»æ‰¾åˆ°è¯¥ç°‡çš„åç§»ï¼
 inline u64 offsetByCluster(u64 clusterNumber) {
     assert(clusterNumber >= Root_Cluster_Number);
     return Bytes_per_Sector * (Reserved_Sector + FATs * Sectors_per_FAT_FAT32) +
            (clusterNumber - Root_Cluster_Number) * Bytes_per_Sector * Sectors_per_Cluster;
 }
 
-// ·µ»ØUINT32µÄ²îÖµ£¡(ÕıÊı£¡)
+// è¿”å›UINT32çš„å·®å€¼ï¼(æ­£æ•°ï¼)
 static u32 diff(u32 a, u32 b) {
     if (a > b) {
         return a - b;
@@ -326,25 +326,25 @@ static u32 diff(u32 a, u32 b) {
     }
 }
 
-// ¸ù¾İÊ×´ØºÅÑ°ÕÒ´ØÁ´¡¢·µ»Ø´ØÁ´µÄÁ´±í£¡
+// æ ¹æ®é¦–ç°‡å·å¯»æ‰¾ç°‡é“¾ã€è¿”å›ç°‡é“¾çš„é“¾è¡¨ï¼
 vector<u32> findClusterList(HANDLE handle, const u32 &clusterIndex) {
     vector<u32> clusterList;
     clusterList.push_back(clusterIndex);
     u32 endFlag = 0x0FFFFFFF;
-    us *out = nullptr;// Ò»¸öÉÈÇø£¡ TODO ÊÍ·Å¿Õ¼ä
-    // TODO ¼ÙÉèÒ»´Î¶ÁÈ¡Ò»¸ö´Ø (8*ÉÈ) ÎÄ¼ş´óĞ¡Ğ£Ñé£¡ ×¢ÒâÕâÀïÃ»·¨Ê¹ÓÃ´ØºÅÀ´¼ÆËã FATÔÚ¿ªÊ¼´ØºÅÖ®Ç°
-    // µ±Ç°FAT±íÏîËùÔÚÉÈÇø£¡
-    u8 numberSector = 64;// Ã¿´Î¶ÁÈ¡µÄÉÈÇøÊı£¡
+    us *out = nullptr;// ä¸€ä¸ªæ‰‡åŒºï¼ TODO é‡Šæ”¾ç©ºé—´
+    // TODO å‡è®¾ä¸€æ¬¡è¯»å–ä¸€ä¸ªç°‡ (8*æ‰‡) æ–‡ä»¶å¤§å°æ ¡éªŒï¼ æ³¨æ„è¿™é‡Œæ²¡æ³•ä½¿ç”¨ç°‡å·æ¥è®¡ç®— FATåœ¨å¼€å§‹ç°‡å·ä¹‹å‰
+    // å½“å‰FATè¡¨é¡¹æ‰€åœ¨æ‰‡åŒºï¼
+    u8 numberSector = 64;// æ¯æ¬¡è¯»å–çš„æ‰‡åŒºæ•°ï¼
     u32 currentSector = _offsetSector(FatAddress(clusterIndex));
     ReadSector(handle, out, currentSector, numberSector);
     us *start = out + ((FatAddress(clusterIndex) - offsetSector(currentSector)) % (sectorSize * numberSector));
     u32 nextClusterIndex = uint8to32(start);
-    u32 nextSector;// ÏÂÒ»´Ø¶ÔÓ¦FATÖĞÆ«ÒÆ£¡
-    while (nextClusterIndex != endFlag) {// µ±Ç°ÏîÄ¿µã
+    u32 nextSector;// ä¸‹ä¸€ç°‡å¯¹åº”FATä¸­åç§»ï¼
+    while (nextClusterIndex != endFlag) {// å½“å‰é¡¹ç›®ç‚¹
         clusterList.push_back(nextClusterIndex);
         nextSector = _offsetSector(FatAddress(nextClusterIndex));
         if (diff(nextSector, currentSector) < numberSector) {
-            // ²»ÓÃÔÙ¶ÁÈ¡ÏÂÒ»´ÅÅÌµ¥Ôª  ¶¨Î»ÏÂÒ»´Ø´ØºÅËùÔÚµÄµØÖ·£¡
+            // ä¸ç”¨å†è¯»å–ä¸‹ä¸€ç£ç›˜å•å…ƒ  å®šä½ä¸‹ä¸€ç°‡ç°‡å·æ‰€åœ¨çš„åœ°å€ï¼
             start = out +
                     (((FatAddress(nextClusterIndex) - offsetSector(currentSector)) % (sectorSize * numberSector)));
             nextClusterIndex = uint8to32(start);
@@ -401,10 +401,10 @@ u32 returnNextCluster(us *&start) {
     return (uint8to16(start + 0x14) << 16) + uint8to16(start + 0x1A);
 }
 
-// ½âÎöÄ¿Â¼Ãû£¡µÄÄ¿Â¼Ïî£¡ µü´ú½âÎö£¡ ÉÏ¼¶Ä¿Â¼µÄÆğÊ¼µØÖ·£¡
+// è§£æç›®å½•åï¼çš„ç›®å½•é¡¹ï¼ è¿­ä»£è§£æï¼ ä¸Šçº§ç›®å½•çš„èµ·å§‹åœ°å€ï¼
 u32 Parse_FDT_Dir(HANDLE handle, string directory, u32 parentCluster = 2) {
     us *out, *start;
-    u32 numberCluster = 20;// ¼ÙÉèÕâÀïµÄstart³ä·ÖµÄ´ó£¡
+    u32 numberCluster = 20;// å‡è®¾è¿™é‡Œçš„startå……åˆ†çš„å¤§ï¼
     ReadCluster(handle, out, parentCluster, numberCluster);
     wstring target = UTF8ToUnicode(directory);
     start = out;
@@ -413,14 +413,14 @@ u32 Parse_FDT_Dir(HANDLE handle, string directory, u32 parentCluster = 2) {
     pLDT ldt;
     pSDT sdt;
     bool isLDT = true;
-    string upperString = directory;//´óĞ´Ä¿Â¼£¡
+    string upperString = directory;//å¤§å†™ç›®å½•ï¼
     transform(upperString.begin(), upperString.end(), upperString.begin(), ::toupper);
     int i;
     vector<string> list;
     string end = " ";
     bool match = false;
     if (upperString.find('.') != string::npos) {
-        // ÎÄ¼ş
+        // æ–‡ä»¶
         list = split(upperString, ".");
         if (list[0].length() <= 8 && list[1].length() <= 3) {
             isLDT = false;
@@ -434,7 +434,7 @@ u32 Parse_FDT_Dir(HANDLE handle, string directory, u32 parentCluster = 2) {
             isLDT = true;
         }
     } else {
-        // Ä¿Â¼
+        // ç›®å½•
         if (upperString.length() <= 8) {
             isLDT = false;
             for (i = upperString.length(); i < 11; i++) {
@@ -445,7 +445,7 @@ u32 Parse_FDT_Dir(HANDLE handle, string directory, u32 parentCluster = 2) {
         }
     }
     while (*start != 0x0) {
-        // ÏîÄ¿ÒÑ¾­±»É¾³ı£¡
+        // é¡¹ç›®å·²ç»è¢«åˆ é™¤ï¼
         if (*start == 0xE5) {
             start += 32;
         } else if (*(start + 0xB) == 0xF) {
@@ -453,34 +453,34 @@ u32 Parse_FDT_Dir(HANDLE handle, string directory, u32 parentCluster = 2) {
             if (isLDT) {
                 start += (skip - 1) * 32;
                 if (compareLDT(target, start, skip)) {
-                    // ÕÒµ½ÁËÄ¿±êµÄÍ·ÎÄ¼ş ËûµÄ¶ÎÄ¿Â¼Ïî¾ÍÊÇÄ¿±ê start+32!
+                    // æ‰¾åˆ°äº†ç›®æ ‡çš„å¤´æ–‡ä»¶ ä»–çš„æ®µç›®å½•é¡¹å°±æ˜¯ç›®æ ‡ start+32!
                     start += 32;
                     u32 nextCluster = returnNextCluster(start);
                     delete[]out;
                     delete fdt;
                     return nextCluster;
-                } else {// ´íÎóÆ¥Åä£¡
+                } else {// é”™è¯¯åŒ¹é…ï¼
                     start += 32 * 2;
                 }
             } else {
                 start += skip * 32 + 32;
             }
         } else {
-            // ¶ÌÄ¿Â¼ÏîÆ¥Åä£¡
+            // çŸ­ç›®å½•é¡¹åŒ¹é…ï¼
             if (isLDT) {
                 start += 32;
                 continue;
             }
-            // È·¶¨ÊÇ¶ÌÄ¿Â¼Ïî£¡
+            // ç¡®å®šæ˜¯çŸ­ç›®å½•é¡¹ï¼
             memcpy(fdt, start, 32);
             sdt = (pSDT) fdt;
             if (list.size() == 2) {
                 match = true;
-                // ÅĞ¶ÏÎª¶Ì ÎÄ¼ş
+                // åˆ¤æ–­ä¸ºçŸ­ æ–‡ä»¶
                 for (i = 0; i < 8; i++) {
 
                     if ((us) list[0][i] != sdt->filename[i]) {
-                        // ²»Æ¥Åä
+                        // ä¸åŒ¹é…
                         start += 32;
                         match = false;
                         break;
@@ -489,11 +489,11 @@ u32 Parse_FDT_Dir(HANDLE handle, string directory, u32 parentCluster = 2) {
                 if (match) {
                     for (i = 0; i < 3; i++) {
                         if ((us) list[1][i] != sdt->filename[i + 8]) {
-                            // ²»Æ¥Åä
+                            // ä¸åŒ¹é…
                             start += 32;
                             break;
                         } else {
-                            // Æ¥ÅäÕıÈ·
+                            // åŒ¹é…æ­£ç¡®
                             u32 nextCluster = returnNextCluster(start);
                             delete[]out;
                             delete fdt;
@@ -502,11 +502,11 @@ u32 Parse_FDT_Dir(HANDLE handle, string directory, u32 parentCluster = 2) {
                     }
                 }
 
-            } else {//ÅĞ¶ÏÎª¶Ì Ä¿Â¼
+            } else {//åˆ¤æ–­ä¸ºçŸ­ ç›®å½•
                 match = true;
                 for (i = 0; i < 11; i++) {
                     if ((us) upperString[i] != sdt->filename[i]) {
-                        // ²»Æ¥Åä
+                        // ä¸åŒ¹é…
                         start += 32;
                         match = false;
                         break;
@@ -526,7 +526,7 @@ u32 Parse_FDT_Dir(HANDLE handle, string directory, u32 parentCluster = 2) {
 
 }
 
-/*³õÊ¼»¯º¯Êı*/
+/*åˆå§‹åŒ–å‡½æ•°*/
 void rc4_init(unsigned char *s, unsigned char *key, unsigned long Len) {
     int i = 0, j = 0;
     char k[256] = {0};
@@ -538,12 +538,12 @@ void rc4_init(unsigned char *s, unsigned char *key, unsigned long Len) {
     for (i = 0; i < 256; i++) {
         j = (j + s[i] + k[i]) % 256;
         tmp = s[i];
-        s[i] = s[j]; //½»»»s[i]ºÍs[j]
+        s[i] = s[j]; //äº¤æ¢s[i]å’Œs[j]
         s[j] = tmp;
     }
 }
 
-/*¼Ó½âÃÜ*/
+/*åŠ è§£å¯†*/
 void rc4_crypt(unsigned char *s, unsigned char *Data, unsigned long Len) {
     int i = 0, j = 0, t = 0;
     unsigned long k = 0;
@@ -552,7 +552,7 @@ void rc4_crypt(unsigned char *s, unsigned char *Data, unsigned long Len) {
         i = (i + 1) % 256;
         j = (j + s[i]) % 256;
         tmp = s[i];
-        s[i] = s[j]; //½»»»s[x]ºÍs[y]
+        s[i] = s[j]; //äº¤æ¢s[x]å’Œs[y]
         s[j] = tmp;
         t = (s[i] + s[j]) % 256;
         Data[k] ^= s[t];
@@ -575,26 +575,26 @@ int isSequence(const vector<u32> &list) {
 
 void work(cmdline::parser &cmd) {
 
-    // Â·¾¶½âÎö
+    // è·¯å¾„è§£æ
     //string path = "f:/cmdline-master/main.cpp";
     string path = cmd.rest()[0];
     vector<string> res = ParseFilePath(path);
-    // ´ò¿ª´ÅÅÌ¾ä±ú
+    // æ‰“å¼€ç£ç›˜å¥æŸ„
     HANDLE handle = OpenDisk(res[0][0]);
-    // ³õÊ¼»¯DBRĞÅÏ¢
+    // åˆå§‹åŒ–DBRä¿¡æ¯
     pFAT32_DBR dbr = INIT_FAT32_DBR(handle);
-    // ÊÍ·Ådbr¿Õ¼ä
+    // é‡Šæ”¾dbrç©ºé—´
     delete dbr;
-    // Ê×´ØµÄ´ØºÅ
+    // é¦–ç°‡çš„ç°‡å·
     u32 nextCluster = Root_Cluster_Number;
-    // µü´úÑ°ÕÒÄ¿±êÎÄ¼şµÄÊ×´ØºÅ£¡
+    // è¿­ä»£å¯»æ‰¾ç›®æ ‡æ–‡ä»¶çš„é¦–ç°‡å·ï¼
     for (int i = 1; i < res.size(); i++) {
         nextCluster = Parse_FDT_Dir(handle, res[i], nextCluster);
     }
-    // ¸ù¾İÊ×´ØºÅÑ°ÕÒ´ØÁ´
+    // æ ¹æ®é¦–ç°‡å·å¯»æ‰¾ç°‡é“¾
     vector<u32> clusterList = findClusterList(handle, nextCluster);
     if (cmd.exist("show")) {
-        cout << "\nÎÄ¼ş:" << path << "µÄ´ØºÅÈçÏÂ: ´ØÁ´×ÜÊı(" << clusterList.size() << ")\n";
+        cout << "\næ–‡ä»¶:" << path << "çš„ç°‡å·å¦‚ä¸‹: ç°‡é“¾æ€»æ•°(" << clusterList.size() << ")\n";
         int i = 0;
         for (const auto it : clusterList) {
             if (++i % 8 == 0) {
@@ -604,7 +604,7 @@ void work(cmdline::parser &cmd) {
         }
     }
     if (cmd.exist("encode") || cmd.exist("decode")) {
-        // ²ÉÓÃRC4·½Ê½¼ÓÃÜ!
+        // é‡‡ç”¨RC4æ–¹å¼åŠ å¯†!
         unsigned char s[256] = {0}; //S-box
         string key;
         if (cmd.exist("encode") && cmd.exist("decode")) {
@@ -614,36 +614,36 @@ void work(cmdline::parser &cmd) {
         } else {
             key = cmd.get<string>("decode");
         }
-        rc4_init(s, (unsigned char *) key.c_str(), key.length()); //ÒÑ¾­Íê³ÉÁË³õÊ¼»¯
-        // ¶ÁÈ¡´ØÁ´µÄĞÅÏ¢£¡ Èç¹û´ØÁ´ÊÇË³ĞòµÄ»°¡¢Ò»´ÎĞÔ¶ÁÈ¡ËùÓĞµÄ´ØÁ´£¡
+        rc4_init(s, (unsigned char *) key.c_str(), key.length()); //å·²ç»å®Œæˆäº†åˆå§‹åŒ–
+        // è¯»å–ç°‡é“¾çš„ä¿¡æ¯ï¼ å¦‚æœç°‡é“¾æ˜¯é¡ºåºçš„è¯ã€ä¸€æ¬¡æ€§è¯»å–æ‰€æœ‰çš„ç°‡é“¾ï¼
         us *out = nullptr;
-        // Ã¿Ò»´Î¶Á¶ÁÈ¡µÄÊıÄ¿£¡
-        int onceCluster = isSequence(clusterList), all = clusterList.size();// Èç¹ûÊÇË³ĞòµÄ»°¡¢Ò»´Î¶ÁÈ¡1000´Ø
+        // æ¯ä¸€æ¬¡è¯»è¯»å–çš„æ•°ç›®ï¼
+        int onceCluster = isSequence(clusterList), all = clusterList.size();// å¦‚æœæ˜¯é¡ºåºçš„è¯ã€ä¸€æ¬¡è¯»å–1000ç°‡
 
         int i = 0, j;
         while (all >= onceCluster) {
-            // ¿Õ¼ä³äÔ££¡
+            // ç©ºé—´å……è£•ï¼
             ReadCluster(handle, out, clusterList[i * onceCluster], onceCluster);
             for (j = 0; j < onceCluster; j++) {
                 rc4_crypt(s, (us *) (out + j * clusterSize), clusterSize);
             }
-            //¼Ó½âÃÜ
+            //åŠ è§£å¯†
             WriteCluster(handle, out, clusterList[i * onceCluster], onceCluster);
             all -= onceCluster;
             i++;
         }
         if (all <= 0) {
-            cout << "\n¼ÓÃÜ/½âÃÜÍê³É£¡\n";
+            cout << "\nåŠ å¯†/è§£å¯†å®Œæˆï¼\n";
             delete[]out;
             return;
-        } else {// Ö´ĞĞµ½ÕâÀï¡¢ËµÃ÷onceCluster£¡=1 ¼´ÊÇ´ØÁ´ÊÇÁ¬ĞøµÄ£¡
+        } else {// æ‰§è¡Œåˆ°è¿™é‡Œã€è¯´æ˜onceClusterï¼=1 å³æ˜¯ç°‡é“¾æ˜¯è¿ç»­çš„ï¼
             ReadCluster(handle, out, clusterList[i * onceCluster], all);
             for (j = 0; j < all; j++) {
                 rc4_crypt(s, (us *) (out + j * clusterSize), clusterSize);
             }
             WriteCluster(handle, out, clusterList[i * onceCluster], all);
             delete[]out;
-            cout << "\n¼ÓÃÜ/½âÃÜÍê³É£¡\n";
+            cout << "\nåŠ å¯†/è§£å¯†å®Œæˆï¼\n";
             return;
         }
 
@@ -675,7 +675,7 @@ int main(int argc, char *argv[]) {
     for (size_t i = 0; i < cmd.rest().size(); i++) {
         curFileName = cmd.rest()[i];
         fileCollection.push_back(curFileName);
-        // ÅĞ¶ÏÎÄ¼şÊÇ·ñ´æÔÚ£¡
+        // åˆ¤æ–­æ–‡ä»¶æ˜¯å¦å­˜åœ¨ï¼
         if (!FileExist(curFileName)) {
             cerr << curFileName << " Not exist!";
             exit(-1);
@@ -683,7 +683,7 @@ int main(int argc, char *argv[]) {
     }
     work(cmd);
 
-    // ½âÎöÂ·¾¶ÎÄ¼ş µÃµ½Ä¿Â¼ÏîµÄÆğÊ¼´ØºÅ£¡
+    // è§£æè·¯å¾„æ–‡ä»¶ å¾—åˆ°ç›®å½•é¡¹çš„èµ·å§‹ç°‡å·ï¼
 
     //delete[]out;
     //CloseHandle(handle);
@@ -698,12 +698,12 @@ bool FileExist(const std::string &name) {
 
 void volumeTravel() {
     char VolumeDeviceString[0x500] = {0};
-    // Ç°Ò»¸ö×Ö½ÚÎªÏûÏ¢ÀàĞÍ£¬ºóÃæµÄ52×Ö½ÚÎªÇı¶¯Æ÷¸úÏà¹ØÊôĞÔ
+    // å‰ä¸€ä¸ªå­—èŠ‚ä¸ºæ¶ˆæ¯ç±»å‹ï¼Œåé¢çš„52å­—èŠ‚ä¸ºé©±åŠ¨å™¨è·Ÿç›¸å…³å±æ€§
     BYTE BufferData[0x1000] = {0};
     char FileSystem[MAX_PATH] = {0};
     char *Travel = NULL;
     GetLogicalDriveStringsA(sizeof(VolumeDeviceString), VolumeDeviceString);
-    //»ñµÃÇı¶¯Æ÷ĞÅÏ¢
+    //è·å¾—é©±åŠ¨å™¨ä¿¡æ¯
     /*
     0x001FF228  43 3a 5c 00 45 3a 5c 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  C:\.E:\.............
     */
@@ -713,10 +713,10 @@ void volumeTravel() {
     Travel = VolumeDeviceString;
 
     DWORD Offset = 0;
-    for (Offset = 1; *Travel != '\0'; Travel += lstrlenA(Travel) + 1)   //ÕâÀïµÄ+1ÎªÁË¹ı\0
+    for (Offset = 1; *Travel != '\0'; Travel += lstrlenA(Travel) + 1)   //è¿™é‡Œçš„+1ä¸ºäº†è¿‡\0
     {
-        memset(FileSystem, 0, sizeof(FileSystem));  //ÎÄ¼şÏµÍ³ NTFS
-        // µÃµ½ÎÄ¼şÏµÍ³ĞÅÏ¢¼°´óĞ¡
+        memset(FileSystem, 0, sizeof(FileSystem));  //æ–‡ä»¶ç³»ç»Ÿ NTFS
+        // å¾—åˆ°æ–‡ä»¶ç³»ç»Ÿä¿¡æ¯åŠå¤§å°
         GetVolumeInformationA(Travel, NULL, 0, NULL, NULL, NULL, FileSystem, MAX_PATH);
         ULONG FileSystemLength = lstrlenA(FileSystem) + 1;
 
