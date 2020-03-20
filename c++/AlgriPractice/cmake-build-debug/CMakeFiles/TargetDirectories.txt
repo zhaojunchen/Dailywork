@@ -1,0 +1,3 @@
+C:/GitHub/Dailywork/c++/AlgriPractice/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+C:/GitHub/Dailywork/c++/AlgriPractice/cmake-build-debug/CMakeFiles/AlgriPractice.dir
+C:/GitHub/Dailywork/c++/AlgriPractice/cmake-build-debug/CMakeFiles/edit_cache.dir

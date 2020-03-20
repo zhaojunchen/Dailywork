@@ -585,7 +585,6 @@ int isSequence(const vector<u32> &list) {
 }
 
 void work(cmdline::parser &cmd) {
-
     // 路径解析
     //string path = "f:/cmdline-master/main.cpp";
     string path = cmd.rest()[0];
