@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CMakeRunConfigurationManager" shouldGenerate="true" shouldDeleteObsolete="true">
+    <generated>
+      <config projectName="ClusterEncryption" targetName="ClusterEncryption" />
+    </generated>
+  </component>
+  <component name="CMakeSettings">
+    <configurations>
+      <configuration PROFILE_NAME="Debug" CONFIG_NAME="Debug" />
+    </configurations>
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="81dd4c0c-8930-4d95-88d7-b5422a287bf3" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/../AlgriPractice/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../AlgriPractice/main.cpp" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ClangdSettings">
+    <option name="formatViaClangd" value="false" />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="CMakeBuildProfile:Debug" />
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+  </component>
+  <component name="ProjectId" id="1YtCS2TN0DQRvFDmWHiqbZQjFWr" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="restartRequiresConfirmation" value="false" />
+    <property name="settings.editor.selected.configurable" value="duplicates.index" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\GitHub\Dailywork\c++\ClusterEncryption" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="ClusterEncryption" type="CMakeRunConfiguration" factoryName="Application" PROGRAM_PARAMS="-c f:/cmdline-master/wireshack-user-guide.pdf" PASS_PARENT_ENVS_2="true" PROJECT_NAME="ClusterEncryption" TARGET_NAME="ClusterEncryption" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="ClusterEncryption" RUN_TARGET_NAME="ClusterEncryption">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="81dd4c0c-8930-4d95-88d7-b5422a287bf3" name="Default Changelist" comment="" />
+      <created>1583752499330</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1583752499330</updated>
+      <workItem from="1583752501299" duration="1857000" />
+      <workItem from="1583754386471" duration="2246000" />
+      <workItem from="1583900339014" duration="108000" />
+      <workItem from="1585020954637" duration="671000" />
+    </task>
+    <task id="LOCAL-00001" summary="新建README">
+      <created>1583752858534</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1583752858534</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="新建README" />
+    <option name="LAST_COMMIT_MESSAGE" value="新建README" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="96" y="35" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1583754508776">
+      <screen x="0" y="0" width="1280" height="760" />
+    </state>
+    <state x="96" y="35" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1280.760@0.0.1280.760" timestamp="1583754508776" />
+    <state x="247" y="0" key="CommitChangelistDialog2" timestamp="1583752857892">
+      <screen x="0" y="0" width="1280" height="760" />
+    </state>
+    <state x="247" y="0" key="CommitChangelistDialog2/0.0.1280.760@0.0.1280.760" timestamp="1583752857892" />
+    <state width="1238" height="236" key="GridCell.Tab.0.bottom" timestamp="1583756662532">
+      <screen x="0" y="0" width="1280" height="760" />
+    </state>
+    <state width="1238" height="236" key="GridCell.Tab.0.bottom/0.0.1280.760@0.0.1280.760" timestamp="1583756662532" />
+    <state width="1238" height="236" key="GridCell.Tab.0.center" timestamp="1583756662532">
+      <screen x="0" y="0" width="1280" height="760" />
+    </state>
+    <state width="1238" height="236" key="GridCell.Tab.0.center/0.0.1280.760@0.0.1280.760" timestamp="1583756662532" />
+    <state width="1238" height="236" key="GridCell.Tab.0.left" timestamp="1583756662532">
+      <screen x="0" y="0" width="1280" height="760" />
+    </state>
+    <state width="1238" height="236" key="GridCell.Tab.0.left/0.0.1280.760@0.0.1280.760" timestamp="1583756662532" />
+    <state width="1238" height="236" key="GridCell.Tab.0.right" timestamp="1583756662532">
+      <screen x="0" y="0" width="1280" height="760" />
+    </state>
+    <state width="1238" height="236" key="GridCell.Tab.0.right/0.0.1280.760@0.0.1280.760" timestamp="1583756662532" />
+    <state width="1238" height="236" key="GridCell.Tab.1.bottom" timestamp="1583756662534">
+      <screen x="0" y="0" width="1280" height="760" />
+    </state>
+    <state width="1238" height="236" key="GridCell.Tab.1.bottom/0.0.1280.760@0.0.1280.760" timestamp="1583756662534" />
+    <state width="1238" height="236" key="GridCell.Tab.1.center" timestamp="1583756662533">
+      <screen x="0" y="0" width="1280" height="760" />
+    </state>
+    <state width="1238" height="236" key="GridCell.Tab.1.center/0.0.1280.760@0.0.1280.760" timestamp="1583756662533" />
+    <state width="1238" height="236" key="GridCell.Tab.1.left" timestamp="1583756662533">
+      <screen x="0" y="0" width="1280" height="760" />
+    </state>
+    <state width="1238" height="236" key="GridCell.Tab.1.left/0.0.1280.760@0.0.1280.760" timestamp="1583756662533" />
+    <state width="1238" height="236" key="GridCell.Tab.1.right" timestamp="1583756662534">
+      <screen x="0" y="0" width="1280" height="760" />
+    </state>
+    <state width="1238" height="236" key="GridCell.Tab.1.right/0.0.1280.760@0.0.1280.760" timestamp="1583756662534" />
+    <state x="142" y="22" key="SettingsEditor" timestamp="1583754141039">
+      <screen x="0" y="0" width="1280" height="760" />
+    </state>
+    <state x="142" y="22" key="SettingsEditor/0.0.1280.760@0.0.1280.760" timestamp="1583754141039" />
+    <state x="233" y="113" key="Vcs.Push.Dialog.v2" timestamp="1583752862843">
+      <screen x="0" y="0" width="1280" height="760" />
+    </state>
+    <state x="233" y="113" key="Vcs.Push.Dialog.v2/0.0.1280.760@0.0.1280.760" timestamp="1583752862843" />
+    <state x="324" y="204" key="com.intellij.ide.util.TipDialog" timestamp="1583900423567">
+      <screen x="0" y="0" width="1280" height="760" />
+    </state>
+    <state x="324" y="204" key="com.intellij.ide.util.TipDialog/0.0.1280.760@0.0.1280.760" timestamp="1583900423567" />
+    <state x="126" y="102" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2" timestamp="1583755775474">
+      <screen x="0" y="0" width="1280" height="760" />
+    </state>
+    <state x="126" y="102" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2/0.0.1280.760@0.0.1280.760" timestamp="1583755775474" />
+    <state x="303" y="82" key="search.everywhere.popup" timestamp="1583752547923">
+      <screen x="0" y="0" width="1280" height="760" />
+    </state>
+    <state x="303" y="82" key="search.everywhere.popup/0.0.1280.760@0.0.1280.760" timestamp="1583752547923" />
+  </component>
+</project>
