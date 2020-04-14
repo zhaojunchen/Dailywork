@@ -1,0 +1,3 @@
+C:/Users/zjc98/CLionProjects/shellcodeInjection/cmake-build-debug/CMakeFiles/shellcodeInjection.dir
+C:/Users/zjc98/CLionProjects/shellcodeInjection/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/zjc98/CLionProjects/shellcodeInjection/cmake-build-debug/CMakeFiles/rebuild_cache.dir

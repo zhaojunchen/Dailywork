@@ -1,0 +1,4 @@
+"C:\Program Files\JetBrains\CLion 2019.3.4\bin\cmake\win\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Release -G "CodeBlocks - MinGW Makefiles" C:\Users\zjc98\CLionProjects\shellcodeInjection
+-- Configuring done
+-- Generating done
+-- Build files have been written to: C:/Users/zjc98/CLionProjects/shellcodeInjection/cmake-build-release

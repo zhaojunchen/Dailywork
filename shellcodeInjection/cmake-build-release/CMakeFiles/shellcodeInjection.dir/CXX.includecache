@@ -1,0 +1,24 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+C:/Users/zjc98/CLionProjects/shellcodeInjection/main.cpp
+iostream
+-
+windows.h
+-
+winnt.h
+-
+string
+-
+fstream
+-
+vector
+-
+cassert
+-
+

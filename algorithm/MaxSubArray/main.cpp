@@ -5,7 +5,7 @@
 
 using namespace std;
 
-// 时间复杂度为n 空间复杂度为n
+// 时间复杂度为n  空间复杂度为n
 int MaxSubArray1(int *arr, int l, int r) {
     int m;
     int s[r - l + 1];
